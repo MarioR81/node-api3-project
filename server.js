@@ -13,7 +13,7 @@ server.use(express.json()); //built-in middleware
 server.use('/api/users', userRouter);
 
 server.get('/', (req, res) => {
-  res.send(`<h2>Let's write some middleware!</h2>`);
+  res.send(`<h2>App is UP!</h2>`);
 });
 
 
