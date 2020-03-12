@@ -14,7 +14,7 @@ router.post('/', validateUser, (req, res) => {
   .catch(err => res.status(500).json({ error: "Error adding this user" }))
 });
 
-router.post('/:id/posts', (req, res) => {
+router.post('/:id/posts', validatePost, (req, res) => {
   // do your magic!
   const newPost = { ...req.body, user_id: req.params.id}
   Posts.insert(newPost)
@@ -24,14 +24,14 @@ router.post('/:id/posts', (req, res) => {
   .catch(err => res.status(500).json({ error: "Error adding this post" }))
 });
 
-router.get('/', (req, res) => {
+router.get('/', validateUser, (req, res) => {
   // do your magic!
   Users.get(req.query)
   .then(user => res.status(200).json(user))
   .catch(err => res.status(500).json({ error: "Error fetching users!" }))
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', validatePost, (req, res) => {
   // do your magic!
   Users.getById(req.params.id)
   .then(user => {
@@ -44,7 +44,7 @@ router.get('/:id', (req, res) => {
   .catch(err => res.status(500).json({error: "Error fetching user"}))
 });
 
-router.get('/:id/posts', (req, res) => {
+router.get('/:id/posts', validateUser, (req, res) => {
   // do your magic!
   Users.getUserPosts(req.params.id)
   .then(posts => {
@@ -57,7 +57,7 @@ router.get('/:id/posts', (req, res) => {
   .catch(err => res.status(500).json({ error: "Error fetching user posts" }))
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', validateUserId, (req, res) => {
   // do your magic!
   Users.remove(req.params.id)
   .then(user => {
@@ -70,7 +70,7 @@ router.delete('/:id', (req, res) => {
   .catch(err => res.status(500).json({error: "Error deleting user"}))
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', validateUserId, (req, res) => {
   // do your magic!
   const id = req.params.id;
   const { name } = req.body;
