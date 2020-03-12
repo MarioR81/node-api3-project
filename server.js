@@ -13,7 +13,8 @@ server.use(express.json()); //built-in middleware
 server.use('/api/users', userRouter);
 
 server.get('/', (req, res) => {
-  res.send(`<h2>App is UP!</h2>`);
+  const messageOfTheDay = process.env.MOTD;
+  res.status(200).json({ motd: messageOfTheDay });
 });
 
 
